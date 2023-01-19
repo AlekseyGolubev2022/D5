@@ -11,6 +11,13 @@ class Author(models.Model):
     )
     rating = models.IntegerField(default=0)
 
+    def update_rating(self):
+        for_posts = sum(i['rating'] for i in self.posts.values('rating')) * 3
+        for_comments = sum(i['rating'] for i in self.user.comments.values('rating'))
+        author_posts = self.posts.values('rating')
+        for_postcomments = sum(i['rating'] for i in (j for j in author_posts))
+        self.rating = for_posts + for_comments + for_postcomments
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -30,14 +37,16 @@ class Post(models.Model):
     GENRES = [(NEWS, 'новость'), (ARTICLE, 'статья')]
 
     title = models.CharField(
-        'Заголовок', max_length=100, help_text='Заголовок публикации')
+        'Заголовок', max_length=100, help_text='Заголовок публикации'
+    )
     genre = models.CharField(max_length=1, choices=GENRES, default=NEWS)
     text = models.TextField(
         'Текст статьи/новости', help_text='Текст новой публикации')
     pub_date = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(default=0)
     author = models.ForeignKey(
-        Author, on_delete=models.CASCADE, related_name='posts')
+        Author, on_delete=models.CASCADE, related_name='posts'
+    )
     categories = models.ManyToManyField(Category, through='PostCategory')
 
     class Meta:
@@ -52,9 +61,11 @@ class Post(models.Model):
     def like(self):
         """Упрощенный вариант (по заданию) без проверок и геттеров/сеттеров"""
         self.rating += 1
+        self.save()
 
     def dislike(self):
         self.rating -= 1
+        self.save()
 
 
 class PostCategory(models.Model):
@@ -90,6 +101,8 @@ class Comment(models.Model):
     def like(self):
         """Упрощенный вариант (по заданию) без проверок и геттеров/сеттеров"""
         self.rating += 1
+        self.save()
 
     def dislike(self):
         self.rating -= 1
+        self.save()
