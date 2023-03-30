@@ -17,6 +17,8 @@ class Author(models.Model):
         author_posts = self.posts.values('rating')
         for_postcomments = sum(i['rating'] for i in (j for j in author_posts))
         self.rating = for_posts + for_comments + for_postcomments
+# --------------------------------------79------------------------------------
+        self.save()
 
 
 class Category(models.Model):
@@ -53,7 +55,7 @@ class Post(models.Model):
         ordering = ['-pub_date']
 
     def __str__(self):
-        return self.title[:30] + '...'
+        return self.title[:20] + '...'
 
     def preview(self):
         return self.title[:124] + '...'
@@ -74,6 +76,9 @@ class PostCategory(models.Model):
 
 # --------------------------------------79------------------------------------
 class Comment(models.Model):
+    """Список комментариев,
+    именованная выборка Post.comments - фильтр id объектов по Посту,
+    а выборка User.comments - фильтр объектов по Автору комментария"""
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,

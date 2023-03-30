@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import PostsList
 
-app_name = 'news'
+from .views import NewsList
+
+#app_name = 'news'
 
 urlpatterns = [
-   path('', PostsList.as_view()),
+   path('', NewsList.as_view()),
 ]
