@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Post
 
 
@@ -7,3 +7,9 @@ class NewsList(ListView):
     ordering = '-pub_date'
     template_name = 'post_list.html'
     context_object_name = 'posts'
+
+
+class PostDetail(DetailView):
+    model = Post
+    template_name = 'post.html'
+    context_object_name = 'post'
