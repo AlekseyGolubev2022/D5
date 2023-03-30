@@ -1,5 +1,5 @@
 ﻿{% extends 'default.html' %} 
- 
+{% load custom_filters %}
 {% block title %}
 News
 {% endblock title %}
@@ -10,13 +10,13 @@ News
 {% for post in posts %}
       <ul>
         <li>
-          Заголовок: {{ post.title }}
+          Заголовок: {{ post.title|censor }}
         </li>
         <li>
           Дата публикации: {{ post.pub_date|date:"d E Y" }}
         </li>
       </ul>
-      <p>{{ post.text }}</p>
+      <p>{{ post.text|censor }}</p>
 <a href="{% url 'news:post_detail' post.id %}">подробная информация </a><br>
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
