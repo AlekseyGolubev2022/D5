@@ -5,9 +5,19 @@ News
 {% endblock title %}
  
 {% block content %}
- <h1>Все новости</h1>
+  <h1>Все новости</h1>
 
-{% for post in posts %}
+  {# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
+  <form action="" method="get">
+    {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+    {{ filterset.form.as_p }}
+    {# Добавим кнопку отправки данных формы #}
+    <input type="submit" value="Найти" />
+  </form>
+  <hr>
+
+  {% if posts %}
+    {% for post in posts %}
       <ul>
         <li>
           Заголовок: {{ post.title|censor }}
@@ -20,6 +30,10 @@ News
 <a href="{% url 'news:post_detail' post.id %}">подробная информация </a><br>
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
+
+  {% else %}
+      <h2>Новостей нет!</h2>
+  {% endif %}
 
    {# Добавляем пагинацию на страницу #}
    {% if page_obj.has_previous %}
