@@ -20,6 +20,9 @@ class Author(models.Model):
 # --------------------------------------79------------------------------------
         self.save()
 
+    def __str__(self):
+        return self.user.username
+
 
 class Category(models.Model):
     name = models.CharField(
