@@ -30,5 +30,30 @@ comment1.like();comment1.like();comment1.dislike();
 comment2.like();comment2.like();comment2.dislike();
 comment3.like();comment3.like();comment3.dislike();
 comment4.like();comment4.like();comment4.dislike();
-user1.author.update_rating(); # user1.author.rating
-user2.author.update_rating(); # user2.author.rating
+
+user1.author.update_rating();  user1.author.rating;
+user2.author.update_rating();  user2.author.rating;
+
+user4 = User.objects.create_user('user0004');
+Author.objects.create(user=user4);
+cat4=Category.objects.get(name='Category4');
+instance4 = Post.objects.create(title='Новость00004',genre='N',author=user4.author,text='00004 текст...');
+instance4.categories.set((cat4,));
+instance5 = Post.objects.create(title='Новость00005',genre='N',author=user4.author,text='00005 текст...');
+instance5.categories.set((cat4,));
+instance6 = Post.objects.create(title='Новость00006',genre='N',author=user4.author,text='00006 текст...');
+instance6.categories.set((cat4,));
+instance7 = Post.objects.create(title='Новость00007',genre='N',author=user4.author,text='00007 текст...');
+instance7.categories.set((cat4,));
+instance8 = Post.objects.create(title='Новость00008',genre='N',author=user4.author,text='00008 текст...');
+instance8.categories.set((cat4,));
+instance9 = Post.objects.create(title='Новость00009',genre='N',author=user4.author,text='00009 текст...');
+instance9.categories.set((cat4,));
+instance10 = Post.objects.create(title='Новость000010',genre='N',author=user4.author,text='000010 текст...');
+instance10.categories.set((cat4,));
+instance11 = Post.objects.create(title='Новость000011',genre='N',author=user4.author,text='000011 текст...');
+instance11.categories.set((cat4,));
+instance12 = Post.objects.create(title='Новость000012',genre='N',author=user4.author,text='000012 текст...');
+instance12.categories.set((cat4,));
+instance13 = Post.objects.create(title='Новость000013',genre='N',author=user4.author,text='000013 текст...');
+instance13.categories.set((cat4,));
